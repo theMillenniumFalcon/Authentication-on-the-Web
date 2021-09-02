@@ -5,7 +5,7 @@
   the session Id in a cookie on the user browser.
 - The session Id is then sent on subsequent requests to the server and the server compares it with the stored session data and proceeds to process the
   requested action.
-  https://res.cloudinary.com/practicaldev/image/fetch/s--jzM6Wq6e--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://cdn-images-1.medium.com/max/800/0%2AP5OxJMihg0S0jyqk.png
+- https://res.cloudinary.com/practicaldev/image/fetch/s--jzM6Wq6e--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://cdn-images-1.medium.com/max/800/0%2AP5OxJMihg0S0jyqk.png
 
 # Authentication:
 
@@ -66,7 +66,7 @@
 - rarely encrypted ( AES ) to protected from being read
   - no security concern if read by 3rd party
   - carries no meaningful data ( random string )
-  - even if encrypted, still 1 1-1 match
+  - even if encrypted, still a 1-1 match
 - encoded ( URL ) --> not for security, but compact
 
 # Attributes:
@@ -86,3 +86,33 @@
 
 - unauthorized action on behalf of the authenticated user
 - mitigated with a CSRF taken ( e.g. sent in a separate X-CSRF_TOKEN cookie)
+
+<hr>
+
+# Tokens:
+
+## Flow -->
+
+- user submits login credentials, e.g. email & password
+- server verifies the credentials against the DB
+- server generates a temporary token and embeds user data into it
+- server responds back with the token (in body or header)
+- user stores the token in client storage
+- user sends the token in client storage
+- user sends the token along in client storage
+- user sends the token along with each requested
+- server verifies the token & grants access
+- when user logs out, token is cleared froom client storage
+
+## Features -->
+
+- tokens are not stored server-side, only on the client side (stateless)
+- signed with a secret against tampering
+  - verified and can be trusted by the server
+- tokens can be opaque or self-contained
+  - carries all required user data in its payload
+  - reduces database lookups, but exposes data to XSS
+- typically sent in Authorization header
+- when a token is about to expire, it can be refreshed
+  - client is isssued both access & refresh tokens
+- used in SPA web apps, web APIs, mobile apps
