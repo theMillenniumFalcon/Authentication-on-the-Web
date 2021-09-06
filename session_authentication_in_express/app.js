@@ -1,9 +1,8 @@
 const express = require('express');
 const session = require('express-session');
+const bodyParser = require('express-session')
 
 const TWO_HOURS = 1000 * 60 * 60 * 2;
-
-const app = express();
 
 const {
     PORT = 5000,
@@ -21,6 +20,8 @@ const users = [
     { id: 2, name: 'Max', email: 'max@gmail.com', password: 'secret'},
     { id: 3, name: 'Alex', email: 'alex@gmail.com', password: 'secret'},
 ]
+
+const app = express();
 
 app.use(session({
     name: SESS_NAME,
@@ -55,15 +56,39 @@ app.get('/', (req, res) => {
 })
 
 app.get('/home', (req, res) => {
-
+    res.send(`
+        <h1>Home</h1>
+        <a href='/'>Main</a>
+        <ul>
+            <li>Name: </li>
+            <li>Email: </li>
+        </ul>
+    `)
 })
 
 app.get('/login', (req, res) => {
-
+    res.send(`
+        <h1>Login</h1>
+        <form method='post' action='/login'>
+            <input type='email' name='email' placeholder='Email' required />
+            <input type='password' name='password' placeholder='Password' required />
+            <input type='submit' />
+        </form>
+        <a href='/register'>Register</a>
+    `)
 })
 
 app.get('/register', (req, res) => {
-
+    res.send(`
+        <h1>Register</h1>
+        <form method='post' action='/register'>
+        <input name='name' placeholder='Email' required />
+            <input type='email' name='email' placeholder='Email' required />
+            <input type='password' name='password' placeholder='Password' required />
+            <input type='submit' />
+        </form>
+        <a href='/login'>Login</a>
+    `)
 })
 
 app.post('/login', (req, res) => {
