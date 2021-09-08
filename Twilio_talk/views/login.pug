@@ -1,0 +1,10 @@
+extends base
+
+block vars
+    - var title = "Login"
+
+block body 
+    - Log into your account
+
+    if error 
+    p ERROR: #(error)

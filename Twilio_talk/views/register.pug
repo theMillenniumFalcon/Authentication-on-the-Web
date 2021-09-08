@@ -1,0 +1,11 @@
+extends base
+
+block vars
+    - var title = "Register"
+
+block body
+    h1 Create an account 
+    form(method = "post")
+    span First Name: 
+    input(type = "text", name = "firstName", required = true)
+    br
