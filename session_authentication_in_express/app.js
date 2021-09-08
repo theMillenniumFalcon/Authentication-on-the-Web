@@ -35,11 +35,32 @@ app.use(session({
     }
 }))
 
-app.get('/', (req, res) => {
+const redirctLogin = (req, res, next) => {
+    if (!req.session.userId) {
+        res.redirect('/login')
+    } else {
+        next()
+    }
+}
 
-    // const { userId } = req.session
-    const userId = 1
-    console.log(userId)
+const redirectHome = (req, res, next) => {
+    if (req.session.userId) {
+        res.redirect('/home')
+    } else {
+        next()
+    }
+}
+
+app.use((req, res, next) => {
+    const { userId } = req.session
+    if (userId) {
+        res.locals.user = users.find((user) => user.id === userId)
+    }
+    next()
+})
+
+app.get('/', (req, res) => {
+    const { userId } = req.session
 
     res.send(`
         <h1>Welcome</h1>
@@ -55,18 +76,21 @@ app.get('/', (req, res) => {
     `)
 })
 
-app.get('/home', (req, res) => {
+app.get('/home', redirctLogin, (req, res) => {
+    const { user } = res.locals
+    console.log(req.sessionId)
+
     res.send(`
         <h1>Home</h1>
         <a href='/'>Main</a>
         <ul>
-            <li>Name: </li>
-            <li>Email: </li>
+            <li>Name: ${user.name}</li>
+            <li>Email: ${user.email}</li>
         </ul>
     `)
 })
 
-app.get('/login', (req, res) => {
+app.get('/login', redirectHome, (req, res) => {
     res.send(`
         <h1>Login</h1>
         <form method='post' action='/login'>
@@ -78,7 +102,7 @@ app.get('/login', (req, res) => {
     `)
 })
 
-app.get('/register', (req, res) => {
+app.get('/register', redirectHome, (req, res) => {
     res.send(`
         <h1>Register</h1>
         <form method='post' action='/register'>
@@ -91,16 +115,52 @@ app.get('/register', (req, res) => {
     `)
 })
 
-app.post('/login', (req, res) => {
+app.post('/login', redirectHome, (req, res) => {
+    const { email, password } = req.body
 
+    if (email && password) {
+        const user = users.find((user) => user.email === email && user.password === password)
+
+        if (user) {
+        req.session.userId = user.id
+        return res.redirect('/home')
+    }
+  }
+  res.redirect('/login')  
 })
 
-app.post('/register', (req, res) => {
+app.post('/register', redirectHome, (req, res) => {
+    const { name, email, password } = req.body
 
+    if (name && email && password) {
+        const exits = users.some((user) => user.email === email)
+
+        if (!exists) {
+            const user = {
+                id: users.length + 1,
+                name,
+                email,
+                password
+            }
+            users.push(user)
+
+            req.session.userId = user.id
+
+            return res.redirect('/home')
+        }
+    }
+    res.redirect('/register')
 })
 
-app.post('/logout', (req, res) => {
+app.post('/logout', redirctLogin, (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            return res.redirect('/home')
+        }
 
+        res.clearCookie(SESS_NAME)
+        res.redirect('/login')
+    })
 })
 
 app.listen(PORT, () => {
