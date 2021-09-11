@@ -1,1 +1,1 @@
-These are my learnings of web authentication methods. xD
+These are my learnings of web authentication methods.
