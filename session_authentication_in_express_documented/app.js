@@ -5,7 +5,7 @@ const TWO_HOURS = 1000 * 60 * 60 *  2 // 2-hours cookie time
 
 const {
     PORT = 5000,
-    NODE_ENV = 'development', /// For using secure cookies in production, but allowing for testing in development
+    NODE_ENV = 'development', // For using secure cookies in production, but allowing for testing in development
 
     SESS_NAME = 'sid',
     SESS_SECRET = "ssh!quiet,it\'asecret!",

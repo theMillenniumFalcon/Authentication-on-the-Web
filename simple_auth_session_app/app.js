@@ -72,7 +72,7 @@ app
       if (err) {
         res.redirect("/signup");
       } else {
-          console.log(docs)
+        console.log(docs)
         req.session.user = docs;
         res.redirect("/dashboard");
       }
@@ -90,7 +90,7 @@ app
       password = req.body.password;
 
       try {
-        var user = await User.findOne({ username: username }).exec();
+        var user = User.findOne({ username: username }).exec();
         if(!user) {
             res.redirect("/login");
         }
@@ -115,6 +115,15 @@ app.get("/dashboard", (req, res) => {
   }
 });
 
+// route for user logout
+app.get("/logout", (req, res) => {
+  if (req.session.user && req.cookies.user_sid) {
+    res.clearCookie("user_sid");
+    res.redirect("/");
+  } else {
+    res.redirect("/login");
+  }
+});
 
 // route for handling 404 requests(unavailable routes)
 app.use(function (req, res, next) {
