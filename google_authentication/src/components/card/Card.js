@@ -1,19 +1,6 @@
 import React from 'react'
 import styled from "styled-components"
 
-const Card = ({ post }) => {
-    return (
-        <CardContainer>
-            <CardTitle>{post.title}</CardTitle>
-            <CardImage>
-                <img src={post.img} alt="" />
-            </CardImage>
-            <CardDesc>{post.desc}</CardDesc>
-            <CardButton>Read More</CardButton>
-        </CardContainer>
-    )
-}
-
 const CardContainer = styled.div`
 width: 30%;
 padding: 10px;
@@ -50,5 +37,18 @@ color: white;
 font-weight: bold;
 cursor: pointer;
 `;
+
+const Card = ({ post }) => {
+    return (
+        <CardContainer>
+            <CardTitle>{post.title}</CardTitle>
+            <CardImage>
+                <img src={post.img} alt="" />
+            </CardImage>
+            <CardDesc>{post.desc}</CardDesc>
+            <CardButton>Read More</CardButton>
+        </CardContainer>
+    )
+}
 
 export default Card
