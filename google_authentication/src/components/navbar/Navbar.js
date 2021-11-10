@@ -47,7 +47,7 @@ const Navbar = () => {
                             alt="" />
                         </Avatar>
                 </ListItem>
-                <ListItem>Nishank</ListItem>
+                <ListItem>Rebecca</ListItem>
                 <ListItem>Logout</ListItem>
             </List>
         </NavbarContainer>
