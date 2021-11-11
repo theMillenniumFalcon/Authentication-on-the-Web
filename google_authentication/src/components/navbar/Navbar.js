@@ -24,7 +24,7 @@ list-style: none;
 const ListItem = styled.li`
 margin-right: 20px;
 font-weight: 500;
-curosr: pointer;
+cursor: pointer;
 `;
 
 const Avatar = styled.div`
