@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from "styled-components"
+import { Link } from "react-router-dom";
 
 const NavbarContainer = styled.div`
 height: 50px;
@@ -39,7 +40,9 @@ img {
 const Navbar = () => {
     return (
         <NavbarContainer>
-            <Logo>React App</Logo>
+            <Logo>
+                <Link to="/">React App</Link>
+            </Logo>
             <List>
                 <ListItem>
                         <Avatar>
