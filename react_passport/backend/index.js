@@ -1,7 +1,9 @@
 const express = require('express')
 const app = express()
 const cookieSession = require('cookie-session')
-const passport = require('passport')
+const passportSetup = require('./passport')
+const cors = require('cors')
+const passportSetup = require('passport-setup')
 
 app.use(cookieSession(
     {
@@ -23,4 +25,3 @@ app.use(cors({
 app.listen("5000", () => {
     console.log("Server is listening!")
 })
- 
