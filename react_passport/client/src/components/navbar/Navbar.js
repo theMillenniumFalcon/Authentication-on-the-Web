@@ -37,14 +37,22 @@ img {
 }
 `;
 
-const Navbar = () => {
+const NavLink = styled.div`
+color: inherit;
+text-decoration: none;
+`;
+
+const Navbar = ({user}) => {
     return (
         <NavbarContainer>
             <Logo>
-                {/* <Link to="/">React App</Link> */}
-                React App 
+                <NavLink>
+                    {/* <Link to="/">React App</Link> */}
+                    React App
+                </NavLink>
             </Logo>
-            <List>
+            {user ? (
+                <List>
                 <ListItem>
                         <Avatar>
                             <img src="https://media.istockphoto.com/vectors/portrait-of-a-shorthaired-girl-androgin-lookingwith-asidelongglance-vector-id1190626181?k=20&m=1190626181&s=612x612&w=0&h=cqzcsUXp3pPDeFYJqspZY7amsnGzv9X9ZGQatwUeKEo=" 
@@ -54,6 +62,12 @@ const Navbar = () => {
                 <ListItem>Rebecca</ListItem>
                 <ListItem>Logout</ListItem>
             </List>
+            ) : (
+                <NavLink>
+                    <Link to="login">Login</Link>
+                </NavLink>
+            )}
+            
         </NavbarContainer>
     )
 }

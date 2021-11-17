@@ -8,7 +8,7 @@ function App() {
   const user = true
   return (
     <div>
-      <Navbar/>
+      <Navbar user={user}/>
       <Router>
         <Routes>
           <Route exact path="/" element={ <Home/> }/>
