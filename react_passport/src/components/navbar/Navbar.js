@@ -41,7 +41,8 @@ const Navbar = () => {
     return (
         <NavbarContainer>
             <Logo>
-                <Link to="/">React App</Link>
+                {/* <Link to="/">React App</Link> */}
+                React App 
             </Logo>
             <List>
                 <ListItem>
